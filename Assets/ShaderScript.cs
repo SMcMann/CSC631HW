@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventSpawnScript : MonoBehaviour
+public class ShaderScript : MonoBehaviour
 {
     public GameObject gameEvent;
     private GameObject player;
-    public GameObject SomeCube;
+    SpriteRenderer m_SpriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        spawnEvent();
+
     }
 
     // Update is called once per frame
@@ -20,13 +20,15 @@ public class EventSpawnScript : MonoBehaviour
         player = GameObject.Find("Player");
         if (Vector3.Distance(player.transform.position, transform.position) <= 1 && Input.GetButtonDown("Jump"))
         {
-            spawnEvent();
+            m_SpriteRenderer = GetComponent<SpriteRenderer>();
+            //Set the GameObject's Color quickly to a set Color (blue)
+            m_SpriteRenderer.color = Color.blue;
         }
 
     }
 
     void spawnEvent()
     {
-        Instantiate(SomeCube, transform.position, transform.rotation);
+        Instantiate(gameEvent);
     }
 }
