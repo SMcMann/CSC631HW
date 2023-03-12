@@ -2,27 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour 
 {
-  Rigidbody rb;
-  float movementSpeed = 5f;
+    public Rigidbody rb;
+    public float forwardForce = 100f;
+    public float sidewaysForce = 500f;
     // Start is called before the first frame update
-    void Start()
+    void FixedUpdate()
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        rb.AddForce(0, 0, forwardForce * Time.deltaTime);
 
-    // Update is called once per frame
-    void Update()
-    {
-      float horizontalInput = Input.GetAxis("Horizontal");
-      float verticalInput = Input.GetAxis("Vertical");
-
-      rb.velocity = new Vector3(horizontalInput * movementSpeed, rb.velocity.y, verticalInput* movementSpeed);
-
-      if (Input.GetButtonDown("Jump")) {
-        rb.velocity = new Vector3(rb.velocity.x, 5, rb.velocity.z);
-      }
+        if (Input.GetKey("d"))
+        {
+            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0);
+        }
+        if (Input.GetKey("a"))
+        {
+            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0);
+        }
 
     }
 }
